@@ -1,3 +1,3 @@
 #include "estado.h"
 
-int score(ESTADO e, char peca);
+int score(ESTADO e, VALOR peca);
