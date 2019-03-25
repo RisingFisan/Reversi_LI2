@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "estado.h"
-
+#include "funcsjogo.h"
 
 int main()
 {
@@ -19,6 +19,7 @@ int main()
 
     printf("\n");
     printa(e);
+    printf("Score\nX: %2d\nO: %2d",score(e,VALOR_X),score(e,VALOR_O));
     printf("\n");
 
     return 0;
