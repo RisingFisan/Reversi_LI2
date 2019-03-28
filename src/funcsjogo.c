@@ -1,5 +1,4 @@
 #include "estado.h"
-#include "funcsjogo.h"
 #include <stdio.h>
 
 int score(ESTADO e, VALOR peca) {
