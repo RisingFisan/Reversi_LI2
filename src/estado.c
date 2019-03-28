@@ -6,10 +6,8 @@
 
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
-void printa(ESTADO e)
-{
+void printa(ESTADO e, int nPos, POSICAO pos[]) {
     char c = ' ';
-
 
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -25,6 +23,11 @@ void printa(ESTADO e)
                 case VAZIA: {
                     c = '-';
                     break;
+                }
+            }
+            for(int k = 0; k < nPos; k++) {
+                if(i == pos[k].lin && j == pos[k].col) {
+                    c = '.';
                 }
             }
             printf("%c ", c);
