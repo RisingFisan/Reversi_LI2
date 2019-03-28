@@ -27,8 +27,13 @@ typedef struct estado {
     char modo; // modo em que se está a jogar! 0-> manual, 1-> contra computador
 } ESTADO;
 
+// Armazena uma posição da grelha.
+typedef struct posicao {
+    short lin;
+    short col;
+} POSICAO;
 
-void printa(ESTADO);
+void printa(ESTADO e, int nPos, POSICAO pos[]);
 
 
 #endif //PROJ_ESTADO_H
