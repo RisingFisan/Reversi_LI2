@@ -5,8 +5,25 @@
 #include "estado.h"
 
 
+void newBoard(ESTADO* e, VALOR peca,char modo) {
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            e->grelha[i][j] = VAZIA;
+        }
+    }
+    
+    e->grelha[3][4] = VALOR_X;
+    e->grelha[4][3] = VALOR_X;
+    e->grelha[3][3] = VALOR_O;
+    e->grelha[4][4] = VALOR_O;
+
+    e->peca = peca;
+
+    e->modo = modo;
+}
+
 // exemplo de uma função para imprimir o estado (Tabuleiro)
-void printa(ESTADO e, int nPos, POSICAO pos[]) {
+void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
     char c = ' ';
 
     for (int i = 0; i < 8; i++) {
@@ -25,9 +42,11 @@ void printa(ESTADO e, int nPos, POSICAO pos[]) {
                     break;
                 }
             }
-            for(int k = 0; k < nPos; k++) {
-                if(i == pos[k].lin && j == pos[k].col) {
-                    c = '.';
+            if(*pVal) {
+                for(int k = 0; k < nPos; k++) {
+                    if(i == pos[k].lin && j == pos[k].col) {
+                        c = '.';
+                    }
                 }
             }
             printf("%c ", c);
@@ -35,6 +54,6 @@ void printa(ESTADO e, int nPos, POSICAO pos[]) {
         }
         printf("\n");
     }
-
+    *pVal = 0;
 }
 

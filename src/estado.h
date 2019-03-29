@@ -33,7 +33,8 @@ typedef struct posicao {
     short col;
 } POSICAO;
 
-void printa(ESTADO e, int nPos, POSICAO pos[]);
+void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]);
 
+void newBoard(ESTADO* e, VALOR peca, char modo);
 
 #endif //PROJ_ESTADO_H
