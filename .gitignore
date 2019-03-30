@@ -54,3 +54,7 @@ dkms.conf
 # CLion
 **/cmake-build-debug
 **/.idea
+
+# VSCode
+*.code-workspace
+**/.vscode
