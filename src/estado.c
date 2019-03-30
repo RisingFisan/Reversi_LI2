@@ -25,9 +25,12 @@ void newBoard(ESTADO* e, VALOR peca,char modo) {
 // exemplo de uma função para imprimir o estado (Tabuleiro)
 void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
     char c = ' ';
-
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    printf("\n ");
+    for(int i = 0; i < 8; ++i) printf(" %d",i);
+    putchar('\n');
+    for(int i = 0; i < 8; ++i) {
+        printf("%d ",i);
+        for(int j = 0; j < 8; ++j) {
             switch (e.grelha[i][j]) {
                 case VALOR_O: {
                     c = 'O';
@@ -52,7 +55,7 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
             printf("%c ", c);
 
         }
-        printf("\n");
+        putchar('\n');
     }
     *pVal = 0;
 }
