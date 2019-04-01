@@ -21,19 +21,3 @@ else fprintf(f,"O\n");
  fclose(f);
           }
 
- 
- /*int main() {
-  ESTADO e;
-  e.peca= VALOR_X;
-  e.modo='0';
-  for(int i=0;i<8;i++) {
-  	for(int j=0;j<8;j++) {
-  		e.grelha[i][j] = VALOR_X;
-  	}
-  }
-  grava (e);
- 
-  
-return 0;
- }*/
-
