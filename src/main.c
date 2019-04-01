@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 #include "estado.h"
 #include "funcsjogo.h"
+#include "saveload.h"
 
 int main() {
     ESTADO e = {0};
@@ -17,18 +19,18 @@ int main() {
     POSICAO jogadasP[60];
 
     while(!quit) {
+        jp = jogadasPossiveis(e,jogadasP);
         if(!inGame) printf("> ");
         else printf("%c> ",e.peca == VALOR_X ? 'X' : 'O');
         fgets(linha,50,stdin);
         switch(toupper(linha[0])) {
             case 'N':
                 sscanf(linha + 1," %c",&c1);
-                newBoard(&e,c1 == 'X' ? VALOR_X : VALOR_O,'M');
+                newBoard(&e,c1 == 'X' ? VALOR_X : VALOR_O,'0');
                 inGame = 1;
                 break;
             case 'J':
                 sscanf(linha + 1,"%d %d",&y,&x);
-                jp = jogadasPossiveis(e,jogadasP);
                 jogInv = 1;
                 for(int i = 0; i < jp; i++) {
                     if(jogadasP[i].lin == y && jogadasP[i].col == x) {
@@ -38,9 +40,18 @@ int main() {
                 }
                 break;
             case 'S':
-                jp = jogadasPossiveis(e,jogadasP);
                 *ajudaPos = 1;
                 break;
+            case 'E': {
+                if(grava(e,strtok(linha + 2,"\n"),jp,jogadasP)) printf("\nErro ao guardar ficheiro.\n\n");
+                else printf("\nFicheiro guardado com sucesso!\n\n");
+                break; }
+            case 'L':
+                // if(lerDeFicheiro(&e)) {
+                //     printf("Jogo carregado com sucesso!");
+                //     inGame = 1;
+                // }
+                // else printf("Erro ao carregar jogo, ficheiro não encontrado.");
             case 'Q':
                 quit = 1;
                 break;
@@ -48,8 +59,8 @@ int main() {
         }
         if(inGame && !quit) {
             printa(e, ajudaPos, jp, jogadasP);
-            printf("X: %2d       O: %2d\n",score(e,VALOR_X),score(e,VALOR_O));
-            if(jogInv) printf("Jogada inválida! Tente novamente.\n");
+            printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
+            if(jogInv) printf("Jogada inválida! Tente novamente.\n\n");
         }
         jogInv = 0;
     }
