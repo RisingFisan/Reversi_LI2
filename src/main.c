@@ -34,7 +34,8 @@ int main() {
                 jogInv = 1;
                 for(int i = 0; i < jp; i++) {
                     if(jogadasP[i].lin == y && jogadasP[i].col == x) {
-                        /*jogar(&e,y,x);*/
+                        jogar(&e,y,x);
+                        e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
                         jogInv = 0;
                     }
                 }
