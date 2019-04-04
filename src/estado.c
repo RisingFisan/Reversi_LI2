@@ -60,3 +60,9 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
     *pVal = 0;
 }
 
+ESTADO headpop(ESTADOSH hist) {
+    ESTADOSH new = malloc(sizeof(struct estadosh));
+    new = hist;
+    hist = hist->prox;
+    return new->e;
+}

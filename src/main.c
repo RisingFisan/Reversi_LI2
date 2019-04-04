@@ -8,6 +8,8 @@
 
 int main() {
     ESTADO e = {0};
+    ESTADOSH historico = malloc(sizeof(struct estadosh));
+    historico = NULL;
 
     int quit = 0;
     int inGame = 0;
@@ -28,10 +30,13 @@ int main() {
                 sscanf(linha + 1," %c",&c1);
                 newBoard(&e,c1 == 'X' ? VALOR_X : VALOR_O,'0');
                 inGame = 1;
+                historico = NULL;
                 break;
             case 'J':
                 sscanf(linha + 1,"%d %d",&y,&x);
                 jogInv = 1;
+                historico->e = e;
+                historico->prox = malloc(sizeof(struct estadosh));
                 for(int i = 0; i < jp; i++) {
                     if(jogadasP[i].lin == y && jogadasP[i].col == x) {
                         jogar(&e,y,x);
@@ -53,6 +58,8 @@ int main() {
                 //     inGame = 1;
                 // }
                 // else printf("Erro ao carregar jogo, ficheiro não encontrado.");
+            case 'U':
+                e = headpop(historico);
             case 'Q':
                 quit = 1;
                 break;
