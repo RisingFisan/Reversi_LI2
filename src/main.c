@@ -35,8 +35,10 @@ int main() {
             case 'J':
                 sscanf(linha + 1,"%d %d",&y,&x);
                 jogInv = 1;
-                historico->e = e;
-                historico->prox = malloc(sizeof(struct estadosh));
+                ESTADOSH new = malloc(sizeof(struct estadosh));
+                new->e = e;
+                new->prox = historico;
+                historico = new;
                 for(int i = 0; i < jp; i++) {
                     if(jogadasP[i].lin == y && jogadasP[i].col == x) {
                         jogar(&e,y,x);
@@ -59,7 +61,14 @@ int main() {
                 // }
                 // else printf("Erro ao carregar jogo, ficheiro não encontrado.");
             case 'U':
-                e = headpop(historico);
+                if(historico) {
+                    e = historico->e;
+                    ESTADOSH temp = historico;
+                    historico = historico->prox;
+                    free(temp);
+                }
+                else printf("\nImpossível anular jogada.\n\n");
+                break;
             case 'Q':
                 quit = 1;
                 break;

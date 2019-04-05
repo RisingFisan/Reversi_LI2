@@ -42,6 +42,4 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]);
 
 void newBoard(ESTADO* e, VALOR peca, char modo);
 
-ESTADO headpop(ESTADOSH hist);
-
 #endif //PROJ_ESTADO_H
