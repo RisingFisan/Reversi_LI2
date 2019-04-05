@@ -32,3 +32,31 @@ int grava(ESTADO e, char* fileName, int N, POSICAO* jps) {
         return 0;
     }
 }
+
+int carrega (ESTADO *e, char *s){
+	FILE *f;
+	char a,b,c;
+	f=fopen(strcat(s,".txt"), "r");
+	if (f==NULL) return 1;
+	else {
+	    fscanf(f,"%c %c\n",&a,&b);
+		if (a=='M') e->modo='0';
+		else e->modo='1';
+		if (b=='X') e->peca=VALOR_X;
+		else e->peca=VALOR_O;
+		    for (int i=0;i<8;i++){
+		 	   for(int j=0;j<8;j++){
+		 		   fscanf(f,"%c ",&c);
+		 		   if (c=='X') e->grelha[i][j]=VALOR_X;
+		 		   else if (c=='O') e->grelha[i][j]=VALOR_O;
+		 		   else e->grelha[i][j]=VAZIA;
+		 	}
+		    fprintf(f, "\n");
+		 }
+
+	}
+	fclose(f);
+	return 0;
+}
+
+
