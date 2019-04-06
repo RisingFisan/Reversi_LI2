@@ -2,6 +2,7 @@
 // Created by pja on 28/02/2019.
 //
 #include <stdio.h>
+#include <stdlib.h>
 #include "estado.h"
 
 
@@ -59,4 +60,3 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
     }
     *pVal = 0;
 }
-
