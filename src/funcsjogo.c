@@ -15,8 +15,7 @@ int jogadaH(ESTADO e, VALOR peca, POSICAO p);
 int jogadaV(ESTADO e, VALOR peca, POSICAO p);
 int jogadaD(ESTADO e, VALOR peca, POSICAO p);
 
-int jogadasPossiveis(ESTADO e, POSICAO pos[]) {
-    VALOR peca = e.peca;
+int jogadasPossiveis(ESTADO e, VALOR peca, POSICAO pos[]) {
     int n = 0;
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {

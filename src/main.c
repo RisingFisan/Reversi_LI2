@@ -21,7 +21,22 @@ int main() {
     POSICAO jogadasP[60];
 
     while(!quit) {
-        jp = jogadasPossiveis(e,jogadasP);
+        jp = jogadasPossiveis(e,e.peca,jogadasP);
+        if(jp == 0 && inGame) {
+            if(!jogadasPossiveis(e,e.peca == VALOR_X ? VALOR_O : VALOR_X,jogadasP)) {
+                printf("\nNão há mais jogadas possíveis! GAME OVER\n");
+                int sx = score(e,VALOR_X);
+                int so = score(e,VALOR_O);
+                if(sx==so) printf("EMPATE!");
+                else printf("VENCEDOR: %c",sx > so ? 'X' : 'O');
+                break;
+            }
+            else {
+                printf("\nJogador %c não pode jogar, tem de passar a vez.\n\n",e.peca == VALOR_X ? 'X' : 'O');
+                e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
+                jp = jogadasPossiveis(e,e.peca,jogadasP);
+            }
+        }
         if(!inGame) printf("> ");
         else printf("%c> ",e.peca == VALOR_X ? 'X' : 'O');
         fgets(linha,50,stdin);
