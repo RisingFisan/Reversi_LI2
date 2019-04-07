@@ -46,6 +46,7 @@ int main() {
                         jogInv = 0;
                     }
                 }
+                if(jogInv) printf("\nJogada inválida! Tente novamente.\n\n");
                 break;
             case 'S':
                 *ajudaPos = 1;
@@ -55,11 +56,12 @@ int main() {
                 else printf("\nFicheiro guardado com sucesso!\n\n");
                 break; }
             case 'L':
-                // if(lerDeFicheiro(&e)) {
-                //     printf("Jogo carregado com sucesso!");
-                //     inGame = 1;
-                // }
-                // else printf("Erro ao carregar jogo, ficheiro não encontrado.");
+                if(!carrega(&e,strtok(linha + 2,"\n"))) {
+                    printf("\nJogo carregado com sucesso!\n\n");
+                    inGame = 1;
+                }
+                else printf("\nErro ao carregar jogo, ficheiro não encontrado.\n\n");
+                break;
             case 'U':
                 if(historico) {
                     e = historico->e;
@@ -77,7 +79,6 @@ int main() {
         if(inGame && !quit) {
             printa(e, ajudaPos, jp, jogadasP);
             printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
-            if(jogInv) printf("Jogada inválida! Tente novamente.\n\n");
         }
         jogInv = 0;
     }
