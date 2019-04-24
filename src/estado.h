@@ -34,8 +34,8 @@ typedef struct estadosh {
 
 // Armazena uma posição da grelha.
 typedef struct posicao {
-    short lin;
-    short col;
+    char lin;
+    char col;
 } POSICAO;
 
 void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]);

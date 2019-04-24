@@ -1,4 +1,5 @@
 #include "estado.h"
+#include "funcsjogo.h"
 #include <stdio.h>
 
 int score(ESTADO e, VALOR peca) {
@@ -10,10 +11,6 @@ int score(ESTADO e, VALOR peca) {
     }
     return n;
 }
-
-int jogadaH(ESTADO e, VALOR peca, POSICAO p);
-int jogadaV(ESTADO e, VALOR peca, POSICAO p);
-int jogadaD(ESTADO e, VALOR peca, POSICAO p);
 
 int jogadasPossiveis(ESTADO e, VALOR peca, POSICAO pos[]) {
     int n = 0;
@@ -178,8 +175,8 @@ void jogar (ESTADO* e, int l, int c) {
     POSICAO p1, p = {l,c};
     e->grelha[l][c] = e->peca;
     VALOR PECA = e->peca;
-    int i,j = 0;
-    for (i = c-1 ; i>=0; i--) {
+    int i, j;
+    for (i = c - 1; i >= 0; i--) {
         if (e->grelha[l][i] == PECA) {
             p1.lin = l;
             p1.col = i;
@@ -187,7 +184,7 @@ void jogar (ESTADO* e, int l, int c) {
         }
         if (e->grelha[l][i] == VAZIA) break;
     }
-    for (i = c+1 ; i<8; i++) {
+    for (i = c + 1; i < 8; i++) {
         if (e->grelha[l][i] == PECA) {
             p1.lin = l;
                 p1.col = i;
@@ -249,3 +246,4 @@ void jogar (ESTADO* e, int l, int c) {
     }
     
 }
+

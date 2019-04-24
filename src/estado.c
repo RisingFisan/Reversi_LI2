@@ -6,7 +6,7 @@
 #include "estado.h"
 
 
-void newBoard(ESTADO* e, VALOR peca,char modo) {
+void newBoard(ESTADO* e, VALOR peca, char modo) {
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
             e->grelha[i][j] = VAZIA;
@@ -27,10 +27,10 @@ void newBoard(ESTADO* e, VALOR peca,char modo) {
 void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
     char c = ' ';
     printf("\n ");
-    for(int i = 0; i < 8; ++i) printf(" %d",i);
+    for(int i = 0; i < 8; ++i) printf(" %d",i + 1);
     putchar('\n');
     for(int i = 0; i < 8; ++i) {
-        printf("%d ",i);
+        printf("%d ",i + 1);
         for(int j = 0; j < 8; ++j) {
             switch (e.grelha[i][j]) {
                 case VALOR_O: {
