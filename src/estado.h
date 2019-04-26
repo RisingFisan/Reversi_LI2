@@ -37,6 +37,7 @@ typedef struct estadosh {
 typedef struct posicao {
     char lin;
     char col;
+    char dest;
 } POSICAO;
 
 void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]);
