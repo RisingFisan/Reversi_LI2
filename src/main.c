@@ -74,14 +74,14 @@ int main() {
                 *ajudaPos = 1;
                 break;
             case 'E': {
-                if(grava(e,strtok(linha + 2,"\n"),jp,jogadasP)) printf("\nErro ao guardar ficheiro.\n\n");
+                if(grava(e,strtok(linha + 2,"\n"))) printf("\nErro ao guardar ficheiro.\n\n");
                 else printf("\nFicheiro guardado com sucesso!\n\n");
                 break; }
             case 'L':
                 if(!carrega(&e,strtok(linha + 2,"\n"))) {
                     if(e.modo == 1) {
                         bot.peca = e.peca == VALOR_X ? VALOR_O : VALOR_X;
-                        bot.dif = e.modo;
+                        bot.dif = e.dif;
                     }
                     printf("\nJogo carregado com sucesso!\n\n");
                     inGame = 1;
@@ -105,7 +105,7 @@ int main() {
                     printf("\n\nDificuldade inválida - introduza um valor entre 1 e 3!\n\n> ");
                     scanf("%d",&x);
                 }
-                bot.dif = e.modo = x;
+                e.dif = bot.dif = x;
                 inGame = 1;
                 break;
             case 'Q':
@@ -117,7 +117,7 @@ int main() {
             printa(e, ajudaPos, jp, jogadasP);
             printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
         }
-        if(e.modo != 0 && e.peca == bot.peca) {
+        if(e.modo == 1 && e.peca == bot.peca) {
             if(!jogadaBot(&bot,&e)) {
                 printf("Jogada do bot:\n");
                 printa(e, ajudaPos, jp, jogadasP);
@@ -127,13 +127,5 @@ int main() {
         }
         jogInv = 0;
     }
-
-
-    /* printf("\n%c, é a tua vez de jogar!\n", e.peca == VALOR_X ? 'X' : 'O');
-    POSICAO pos[60];
-    int jp = jogadasPossiveis(e,pos);
-    printa(e,jp,pos);
-    printf("\n"); */
-
     return 0;
 }

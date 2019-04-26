@@ -2,6 +2,12 @@
 #include "funcsjogo.h"
 #include <stdio.h>
 
+/** score calcula a pontuação (nº de peças) de um jogador e devolve-a.
+* @param e estado do jogo
+* @param peca peça do jogador cuja pontuação se quer calcular
+* @return a pontuação
+*/
+
 int score(ESTADO e, VALOR peca) {
     int n = 0;
     for(int i = 0; i < 8; i++) {

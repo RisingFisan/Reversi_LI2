@@ -25,6 +25,7 @@ typedef struct estado {
     VALOR peca; // peça do jogador que vai jogar!
     VALOR grelha[8][8];
     char modo; // modo em que se está a jogar! 0-> manual, 1-> contra computador
+    int dif; // dificuldade do jogo (quando em modo automático), entre 1 e 3.
 } ESTADO;
 
 typedef struct estadosh {
