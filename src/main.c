@@ -38,6 +38,14 @@ int main() {
                 printf("\nJogador %c não pode jogar, tem de passar a vez.\n\n",e.peca == VALOR_X ? 'X' : 'O');
                 e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
                 jp = jogadasPossiveis(e,e.peca,jogadasP);
+                if(e.modo == 1 && e.peca == bot.peca) {
+                    if(!jogadaBot(&bot,&e)) {
+                        printf("Jogada do bot:\n");
+                        printa(e, ajudaPos, jp, jogadasP);
+                        printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
+                    }
+                    e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
+                }
             }
         }
         if(!inGame) printf("> ");
