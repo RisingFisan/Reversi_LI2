@@ -48,6 +48,7 @@ int carrega (ESTADO *e, char *s) { // carrega um estado de jogo a partir de um f
         }
         if (b=='X') e->peca = VALOR_X;
         else        e->peca = VALOR_O;
+
         for (int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 fscanf(f,"%c ",&c);
@@ -55,7 +56,6 @@ int carrega (ESTADO *e, char *s) { // carrega um estado de jogo a partir de um f
                 else if (c == 'O') e->grelha[i][j] = VALOR_O;
                 else               e->grelha[i][j] = VAZIA;
             }
-            fprintf(f, "\n");
         }
     }
     fclose(f);

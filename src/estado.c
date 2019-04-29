@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include "estado.h"
 
-
 void newBoard(ESTADO* e, VALOR peca, char modo) {
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
@@ -59,4 +58,12 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
         putchar('\n');
     }
     *pVal = 0;
+}
+
+void limpaHist(ESTADOSH* hist) {
+    while((*hist) != NULL) {
+        ESTADOSH temp = *hist;
+        *hist = (*hist)->prox;
+        free(temp);
+    }
 }

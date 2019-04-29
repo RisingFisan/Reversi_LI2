@@ -21,7 +21,7 @@ int main() {
     int x, y, jp = 0, jogInv = 0;
     int* ajudaPos = malloc(sizeof(int));
     *ajudaPos = 0;
-    POSICAO jogadasP[60];
+    POSICAO jogadasP[60] = {0};
 
     while(!quit) {
         jp = jogadasPossiveis(e,e.peca,jogadasP);
@@ -57,7 +57,7 @@ int main() {
                 sscanf(linha + 1," %c",&c1);
                 newBoard(&e,toupper(c1) == 'X' ? VALOR_X : VALOR_O,0);
                 inGame = 1;
-                historico = NULL;
+                limpaHist(&historico);
                 break;
             case 'J':
                 sscanf(linha + 1,"%d %d",&y,&x);
@@ -95,6 +95,7 @@ int main() {
                     inGame = 1;
                 }
                 else printf("\nErro ao carregar jogo, ficheiro não encontrado.\n\n");
+                limpaHist(&historico);
                 break;
             case 'U':
                 if(historico) {
@@ -113,6 +114,7 @@ int main() {
                     printf("\n\nDificuldade inválida - introduza um valor entre 1 e 3!\n\n> ");
                     scanf("%d",&x);
                 }
+                limpaHist(&historico);
                 e.dif = bot.dif = x;
                 inGame = 1;
                 break;
@@ -126,11 +128,10 @@ int main() {
             printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
         }
         if(e.modo == 1 && e.peca == bot.peca) {
-            if(!jogadaBot(&bot,&e)) {
+            if(!jogadaBot(&bot,&e))
                 printf("Jogada do bot:\n");
-                printa(e, ajudaPos, jp, jogadasP);
-                printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
-            }
+            printa(e, ajudaPos, jp, jogadasP);
+            printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
             e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
         }
         jogInv = 0;
