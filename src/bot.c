@@ -45,7 +45,7 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
     int value;
     int jp = jogadasPossiveis(node,node.peca,jogadasP);
     if(depth == 0 || jp == 0) {
-        return valor(node);
+        return valor(node,maximizingPlayer);
     }
     if(node.peca == maximizingPlayer) {
         value = -1000000000;
@@ -69,7 +69,7 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
     }
 }
 
-int valor(ESTADO e) {
+int valor(ESTADO e, VALOR peca) {
     int soma = 0;
     int valor_pos[8][8]={99, -8,  8,  6,  6,  8, -8, 99,
                          -8,-24, -4, -3, -3, -4,-24, -8,
@@ -81,7 +81,7 @@ int valor(ESTADO e) {
                          99, -8,  8,  6,  6,  8, -8, 99};
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
-            if(e.grelha[i][j] == e.peca) 
+            if(e.grelha[i][j] == peca) 
                 soma += valor_pos[i][j];
         }
     }
