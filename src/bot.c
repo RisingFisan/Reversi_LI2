@@ -27,9 +27,10 @@ int jogadaBot(BOT* bot, ESTADO* e) {
                 ESTADO eCpy = *e;
                 jogar(&eCpy, jogadasP[i].lin, jogadasP[i].col);
                 eCpy.peca = eCpy.peca == VALOR_X ? VALOR_O : VALOR_X;
-                if(minimax(eCpy, 5, bot->peca) > valor) {
+                int x = minimax(eCpy, 5, bot->peca);
+                if(x > valor) {
                     jogada = jogadasP[i];
-                    break;
+                    valor = x;
                 }
             }
             jogar(e,jogada.lin,jogada.col);
@@ -72,14 +73,14 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
 
 int valor(ESTADO e, VALOR peca) {
     int soma = 0;
-    int valor_pos[8][8]={99, -8,  8,  6,  6,  8, -8, 99,
-                         -8,-24, -4, -3, -3, -4,-24, -8,
-                         8, -4,  7,  4,  4,  7, -4,  8,
-                         6, -3,  4,  0,  0,  4, -3,  6,
-                         6, -3,  4,  0,  0,  4, -3,  6,
-                         8, -4,  7,  4,  4,  7, -4,  8,
-                         -8,-24, -4, -3, -3, -4,-24, -8,
-                         99, -8,  8,  6,  6,  8, -8, 99};
+    int valor_pos[8][8]={{ 99,-24,  8,  6,  6,  8,-24, 99},
+                         {-24,-50, -4, -3, -3, -4,-50,-24},
+                         {  8, -4,  7,  4,  4,  7, -4,  8},
+                         {  6, -3,  4,  0,  0,  4, -3,  6},
+                         {  6, -3,  4,  0,  0,  4, -3,  6},
+                         {  8, -4,  7,  4,  4,  7, -4,  8},
+                         {-24,-50, -4, -3, -3, -4,-50,-24},
+                         { 99,-24,  8,  6,  6,  8,-24, 99}};
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
             if(e.grelha[i][j] == peca) 
