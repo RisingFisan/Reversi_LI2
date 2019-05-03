@@ -26,6 +26,7 @@ int jogadaBot(BOT* bot, ESTADO* e) {
             for(int i = 0; i < jp; i++) {
                 ESTADO eCpy = *e;
                 jogar(&eCpy, jogadasP[i].lin, jogadasP[i].col);
+                eCpy.peca = eCpy.peca == VALOR_X ? VALOR_O : VALOR_X;
                 if(minimax(eCpy, 5, bot->peca) > valor) {
                     jogada = jogadasP[i];
                     break;
@@ -53,7 +54,7 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
             nodeCopy.peca = nodeCopy.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = max(value, minimax(nodeCopy, depth - 1, maximizingPlayer == VALOR_X ? VALOR_O : VALOR_X));
+            value = max(value, minimax(nodeCopy, depth - 1, maximizingPlayer));
         }
         return value;
     }
@@ -63,7 +64,7 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
             nodeCopy.peca = nodeCopy.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = min(value, minimax(nodeCopy, depth - 1, maximizingPlayer == VALOR_X ? VALOR_O : VALOR_X));
+            value = min(value, minimax(nodeCopy, depth - 1, maximizingPlayer));
         }
         return value;
     }
