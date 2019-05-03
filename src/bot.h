@@ -9,3 +9,10 @@ typedef struct bot {
 } BOT;
 
 int jogadaBot(BOT* bot, ESTADO* e);
+
+int valor(ESTADO e);
+
+int minimax(ESTADO node, int depth, VALOR maximizingPlayer);
+
+int max(int a, int b);
+int min(int a, int b);

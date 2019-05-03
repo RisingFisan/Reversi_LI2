@@ -165,7 +165,6 @@ void altera (ESTADO* e, POSICAO peca, POSICAO p1) {
     int j = 0;
     int i = 0;
     VALOR PECA = e->peca;
-    printf("%d, %d *** %d, %d\n",peca.lin,peca.col,p1.lin,p1.col);
     if (peca.lin == p1.lin) {
         if (peca.col > p1.col) {
             for (i = p1.col+1; i < peca.col; i++) e->grelha[peca.lin][i] = PECA;
