@@ -10,8 +10,8 @@
 
 
 /**
-estado.h
-Definição do estado i.e. tabuleiro. Representação matricial do tabuleiro.
+\file estado.h
+\brief Definição do estado i.e. tabuleiro. Representação matricial do tabuleiro.
 */
 
 
