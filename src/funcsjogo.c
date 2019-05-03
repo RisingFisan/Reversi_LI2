@@ -2,12 +2,6 @@
 #include "funcsjogo.h"
 #include <stdio.h>
 
-/** score calcula a pontuação (nº de peças) de um jogador e devolve-a.
-* @param e estado do jogo
-* @param peca peça do jogador cuja pontuação se quer calcular
-* @return a pontuação
-*/
-
 int score(ESTADO e, VALOR peca) {
     int n = 0;
     for(int i = 0; i < 8; i++) {
@@ -301,34 +295,5 @@ void jogar (ESTADO* e, int l, int c) {
         i++;
         j++;
     }
-    // for (i = l+1; i<8; i++) {
-    //     if (e->grelha[i][i] == PECA) {
-    //         p1.lin = i;
-    //         p1.col = i;
-    //         altera (e,p,p1);
-    //     }
-    //     if (e->grelha[i][i] == VAZIA) break;
-    // }
-    // j = c+1;
-    // for (i = l-1; i>=0 && j<8; i--) {
-    //     if (e->grelha[i][j] == PECA) {
-    //         p1.lin = i;
-    //         p1.col = j;
-    //         altera (e,p,p1);
-    //     }
-    //     if (e->grelha[i][j] == VAZIA) break;
-    //     j++;
-    // }
-    // j = c-1;
-    // for (i = l+1; i<8 && j>=0; i++) {
-    //     if (e->grelha[i][j] == PECA) {
-    //         p1.lin = i;
-    //         p1.col = j;
-    //         altera (e,p,p1);
-    //     }
-    //     if (e->grelha[i][j] == VAZIA) break;
-    //     j--;
-    // }
-    
 }
 
