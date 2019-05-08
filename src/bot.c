@@ -14,8 +14,46 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
         case 1: {
             jogada = jogadasP[rand() % (jp - 1)];
             break; }
-        case 2:
-            break;
+        case 2: {
+            POSICAO aresta[24] = {0};
+            POSICAO naoAres[36]= {0};
+            int canto = 0;
+            int numArestas = 0;
+            int numNaoAres = 0;
+            for(int i=0;i<jp;i++){
+                if (jogadasP[i].lin==0 && jogadasP[i].col==0
+                 || jogadasP[i].lin==0 && jogadasP[i].col==7
+                 || jogadasP[i].lin==7 && jogadasP[i].col==0
+                 || jogadasP[i].lin==7 && jogadasP[i].col==7 ) {
+                    canto = 1;
+                    jogada = jogadasP[i];
+                    break;
+                }
+                else {
+                    if (jogadasP[i].lin == 1
+                        || jogadasP[i].col == 1
+                        || jogadasP[i].lin == 8
+                        || jogadasP[i].col == 8) {
+                        aresta[numArestas++] = jogadasP[i];
+                    }
+                    else naoAres[numNaoAres++]=jogadasP[i];
+                }
+            }
+
+            if (canto==0) {
+                if (numArestas) {
+                    jogada = aresta[0];
+                    for (int i = 1; i < numArestas; i++) {
+                        if (aresta[i].dest > jogada.dest) jogada = aresta[i];
+                    }
+                } else {
+                    jogada = naoAres[0];
+                    for (int i = 1; i < numNaoAres; i++) {
+                        if (naoAres[i].dest > jogada.dest) jogada = naoAres[i];
+                    }
+                }
+            }
+            break; }
         case 3: {
             int valor = -1000000000;
             for(int i = 0; i < jp; i++) {
