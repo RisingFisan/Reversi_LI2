@@ -60,7 +60,7 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
                 ESTADO eCpy = *e;
                 jogar(&eCpy, jogadasP[i].lin, jogadasP[i].col);
                 eCpy.peca = eCpy.peca == VALOR_X ? VALOR_O : VALOR_X;
-                int x = minimax(eCpy, 5, bot->peca);
+                int x = minimax(eCpy, 6, -1000000, 1000000, bot->peca);
                 if(x > valor) {
                     jogada = jogadasP[i];
                     valor = x;
@@ -74,7 +74,7 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
 int max(int a, int b) {return a > b ? a : b; }
 int min(int a, int b) {return a > b ? b : a; }
 
-int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
+int minimax(ESTADO node, int depth, int alpha, int beta, VALOR maximizingPlayer) {
     POSICAO jogadasP[60];
     int value;
     int jp = jogadasPossiveis(node,node.peca,jogadasP);
@@ -93,13 +93,15 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
         value = -1000000;
         if(jp == 0) {
             node.peca = node.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = max(value, minimax(node, depth - 1, maximizingPlayer));
+            value = max(value, minimax(node, depth - 1, alpha, beta, maximizingPlayer));
         }
         for(int i = 0; i < jp; i++) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
             nodeCopy.peca = nodeCopy.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = max(value, minimax(nodeCopy, depth - 1, maximizingPlayer));
+            value = max(value, minimax(nodeCopy, depth - 1, alpha, beta, maximizingPlayer));
+            alpha = max(value,alpha);
+            if(alpha >= beta) break;
         }
         return value;
     }
@@ -107,13 +109,15 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
         value = 1000000;
         if(jp == 0) {
             node.peca = node.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = min(value, minimax(node, depth - 1, maximizingPlayer));
+            value = min(value, minimax(node, depth - 1, alpha, beta, maximizingPlayer));
         }
         for(int i = 0; i < jp; i++) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
             nodeCopy.peca = nodeCopy.peca = VALOR_X ? VALOR_O : VALOR_X;
-            value = min(value, minimax(nodeCopy, depth - 1, maximizingPlayer));
+            value = min(value, minimax(nodeCopy, depth - 1, alpha, beta, maximizingPlayer));
+            beta = min(beta,value);
+            if(alpha >= beta) break;
         }
         return value;
     }
