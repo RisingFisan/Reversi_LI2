@@ -133,6 +133,8 @@ int valor(ESTADO e, VALOR peca) {
         for(int j = 0; j < 8; j++) {
             if(e.grelha[i][j] == peca) 
                 soma += valor_pos[i][j];
+            else if(e.grelha[i][j] == (peca == VALOR_X ? VALOR_O : VALOR_X))
+                soma-= valor_pos[i][j];
         }
     }
     return soma;
