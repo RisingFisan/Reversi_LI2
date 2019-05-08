@@ -5,18 +5,14 @@
 #include "bot.h"
 #include "funcsjogo.h"
 
-int jogadaBot(BOT* bot, ESTADO* e) {
+POSICAO jogadaBot(BOT* bot, ESTADO* e) {
     POSICAO jogadasP[60];
+    POSICAO jogada = {0};
     srand(time(NULL));
     int jp = jogadasPossiveis(*e,e->peca,jogadasP);
-    if(jp == 0) {
-        printf("\nBot não pode jogar, teve de passar a vez.\n\n");
-        return 1;
-    }
     switch(bot->dif) {
         case 1: {
-            POSICAO jogada = jogadasP[rand() % (jp - 1)];
-            jogar(e,jogada.lin,jogada.col);
+            jogada = jogadasP[rand() % (jp - 1)];
             break; }
         case 2:
             POSICAO jogada = {0};
@@ -61,7 +57,6 @@ int jogadaBot(BOT* bot, ESTADO* e) {
             jogar(e,jogada.lin,jogada.col);
             break;
         case 3: {
-            POSICAO jogada = {0};
             int valor = -1000000000;
             for(int i = 0; i < jp; i++) {
                 ESTADO eCpy = *e;
@@ -73,10 +68,9 @@ int jogadaBot(BOT* bot, ESTADO* e) {
                     valor = x;
                 }
             }
-            jogar(e,jogada.lin,jogada.col);
             break; }
     }
-    return 0;
+    return jogada;
 }
 
 int max(int a, int b) {return a > b ? a : b; }
@@ -86,11 +80,23 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
     POSICAO jogadasP[60];
     int value;
     int jp = jogadasPossiveis(node,node.peca,jogadasP);
-    if(depth == 0 || jp == 0) {
+    if(depth == 0) {
         return valor(node,maximizingPlayer);
     }
+    if(gameOver(node)) {
+        int diff = score(node,maximizingPlayer) - score(node,maximizingPlayer == VALOR_X ? VALOR_O : VALOR_X);
+        if(diff > 0)
+            return 1000000;
+        else if(diff < 0)
+            return -1000000;
+        else return 0;
+    }
     if(node.peca == maximizingPlayer) {
-        value = -1000000000;
+        value = -1000000;
+        if(jp == 0) {
+            node.peca = node.peca = VALOR_X ? VALOR_O : VALOR_X;
+            value = max(value, minimax(node, depth - 1, maximizingPlayer));
+        }
         for(int i = 0; i < jp; i++) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
@@ -100,7 +106,11 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
         return value;
     }
     else {
-        value = 1000000000;
+        value = 1000000;
+        if(jp == 0) {
+            node.peca = node.peca = VALOR_X ? VALOR_O : VALOR_X;
+            value = min(value, minimax(node, depth - 1, maximizingPlayer));
+        }
         for(int i = 0; i < jp; i++) {
             ESTADO nodeCopy = node;
             jogar(&nodeCopy, jogadasP[i].lin, jogadasP[i].col);
@@ -113,14 +123,14 @@ int minimax(ESTADO node, int depth, VALOR maximizingPlayer) {
 
 int valor(ESTADO e, VALOR peca) {
     int soma = 0;
-    int valor_pos[8][8]={{ 99,-24,  8,  6,  6,  8,-24, 99},
-                         {-24,-50, -4, -3, -3, -4,-50,-24},
+    int valor_pos[8][8]={{ 99, -8,  8,  6,  6,  8, -8, 99},
+                         { -8,-24, -4, -3, -3, -4,-24, -8},
                          {  8, -4,  7,  4,  4,  7, -4,  8},
                          {  6, -3,  4,  0,  0,  4, -3,  6},
                          {  6, -3,  4,  0,  0,  4, -3,  6},
                          {  8, -4,  7,  4,  4,  7, -4,  8},
-                         {-24,-50, -4, -3, -3, -4,-50,-24},
-                         { 99,-24,  8,  6,  6,  8,-24, 99}};
+                         { -8,-24, -4, -3, -3, -4,-24, -8},
+                         { 99, -8,  8,  6,  6,  8, -8, 99}};
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
             if(e.grelha[i][j] == peca) 

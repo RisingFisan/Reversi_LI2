@@ -12,4 +12,6 @@ int jogadaD(ESTADO e, VALOR peca, POSICAO* p);
 
 void jogar (ESTADO* e, int c,int l);
 
+int gameOver(ESTADO e);
+
 #endif // PROJ_FUNCSJOGO_H

@@ -296,3 +296,8 @@ void jogar (ESTADO* e, int l, int c) {
     }
 }
 
+int gameOver(ESTADO e) {
+    POSICAO temp[60] = {0};
+    if(jogadasPossiveis(e,VALOR_X,temp) == 0 && jogadasPossiveis(e,VALOR_O,temp) == 0) return 1;
+    else return 0; 
+}
