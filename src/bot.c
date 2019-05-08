@@ -14,8 +14,7 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
         case 1: {
             jogada = jogadasP[rand() % (jp - 1)];
             break; }
-        case 2:
-            POSICAO jogada = {0};
+        case 2: {
             POSICAO aresta[24] = {0};
             POSICAO naoAres[36]= {0};
             int canto = 0;
@@ -54,8 +53,7 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
                     }
                 }
             }
-            jogar(e,jogada.lin,jogada.col);
-            break;
+            break; }
         case 3: {
             int valor = -1000000000;
             for(int i = 0; i < jp; i++) {
