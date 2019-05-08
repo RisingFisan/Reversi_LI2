@@ -24,7 +24,7 @@ typedef struct bot {
     VALOR peca; ///< a peça com que o bot joga
 } BOT;
 
-int jogadaBot(BOT* bot, ESTADO* e);
+POSICAO jogadaBot(BOT* bot, ESTADO* e);
 
 int valor(ESTADO e, VALOR peca);
 
