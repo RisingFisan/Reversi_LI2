@@ -23,7 +23,7 @@ void newBoard(ESTADO* e, VALOR peca, char modo) {
 }
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
-void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
+void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica) {
     char c = ' ';
     printf("\n ");
     for(int i = 0; i < 8; ++i) printf(" %d",i + 1);
@@ -45,15 +45,12 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[]) {
                     break;
                 }
             }
-            if(*pVal) {
-                for(int k = 0; k < nPos; k++) {
-                    if(i == pos[k].lin && j == pos[k].col) {
-                        c = '.';
-                    }
-                }
-            }
+            for(int k = 0; k < nPos; k++)
+                if(*pVal && i == pos[k].lin && j == pos[k].col)
+                    c = '.';
+            if(dica && dica->lin == i && dica->col == j)
+                c = '?';
             printf("%c ", c);
-
         }
         putchar('\n');
     }

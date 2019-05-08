@@ -21,6 +21,8 @@ int main() {
     int x, y, jp = 0, jogInv = 0;
     int* ajudaPos = malloc(sizeof(int));
     *ajudaPos = 0;
+    POSICAO posDica = {0};
+    POSICAO * dica = NULL;
     POSICAO jogadasP[60] = {0};
 
     while(!quit) {
@@ -89,6 +91,11 @@ int main() {
                     else printf("\nErro ao carregar jogo, ficheiro não encontrado.\n\n");
                     //limpaHist(&historico);
                     break;
+                case 'H': {
+                    BOT botTemp = { .dif = 3, .peca = e.peca};
+                    posDica = jogadaBot(&botTemp,&e);
+                    dica = &posDica;
+                    break; }
                 case 'U':
                     if(historico) {
                         e = historico->e;
@@ -116,7 +123,7 @@ int main() {
 
             }
             if(inGame && !quit) {
-                printa(e, ajudaPos, jp, jogadasP);
+                printa(e, ajudaPos, jp, jogadasP, dica);
                 printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
             }
         }
@@ -128,12 +135,13 @@ int main() {
                 POSICAO jogada = jogadaBot(&bot,&e);
                 jogar(&e,jogada.lin,jogada.col);
                 printf("Jogada do bot:\n");
-                printa(e, ajudaPos, jp, jogadasP);
+                printa(e, ajudaPos, jp, jogadasP, dica);
                 printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
                 e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
             }
         }
         jogInv = 0;
+        dica = NULL;
     }
     return 0;
 }
