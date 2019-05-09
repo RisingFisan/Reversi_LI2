@@ -4,7 +4,7 @@
 
 int grava(ESTADO e, char *fileName) { // grava o estado atual do jogo num ficheiro .txt
     FILE *f;
-    if((f = fopen(strcat(fileName,".txt"), "w")) == NULL) return 1;
+    if((f = fopen(fileName, "w")) == NULL) return 1;
     else {
 
         if (e.modo == 0) fprintf(f, "M ");

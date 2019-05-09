@@ -63,7 +63,7 @@ Imprime no terminal o tabuleiro do jogo, com as peças no seu lugar.
 @param nPos número de posições válidas, i.e., onde o jogador atual pode jogar.
 @param pos lista com as posições válidas para o jogador atual.
  */
-void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica);
+void printa(ESTADO e, int nPos, POSICAO pos[], POSICAO * dica);
 
 void newBoard(ESTADO* e, VALOR peca, char modo);
 

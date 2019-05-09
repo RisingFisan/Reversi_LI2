@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "estado.h"
+#include "funcsjogo.h"
 
 void newBoard(ESTADO* e, VALOR peca, char modo) {
     for(int i = 0; i < 8; i++) {
@@ -23,7 +24,7 @@ void newBoard(ESTADO* e, VALOR peca, char modo) {
 }
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
-void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica) {
+void printa(ESTADO e, int nPos, POSICAO pos[], POSICAO * dica) {
     char c = ' ';
     printf("\nModo %s\n ",e.modo == 0 ? "manual" : "automático");
     for(int i = 0; i < 8; ++i) printf(" %d",i + 1);
@@ -46,7 +47,7 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica) {
                 }
             }
             for(int k = 0; k < nPos; k++)
-                if(*pVal && i == pos[k].lin && j == pos[k].col)
+                if(i == pos[k].lin && j == pos[k].col)
                     c = '.';
             if(dica && dica->lin == i && dica->col == j)
                 c = '?';
@@ -54,7 +55,7 @@ void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica) {
         }
         putchar('\n');
     }
-    *pVal = 0;
+    printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
 }
 
 void limpaHist(ESTADOSH* hist) {

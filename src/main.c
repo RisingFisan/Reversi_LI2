@@ -7,6 +7,8 @@
 #include "saveload.h"
 #include "bot.h"
 
+void torneio(char *);
+
 int main() {
     ESTADO e = {0};
     ESTADOSH historico = malloc(sizeof(struct estadosh));
@@ -19,8 +21,7 @@ int main() {
     char linha[50];
     char c1;
     int x, y, jp = 0, jogInv = 0;
-    int* ajudaPos = malloc(sizeof(int));
-    *ajudaPos = 0;
+    int ajudaPos = 0;
     POSICAO posDica = {0};
     POSICAO * dica = NULL;
     POSICAO jogadasP[60] = {0};
@@ -45,6 +46,7 @@ int main() {
             if(!inGame) printf("> ");
             else printf("%c> ",e.peca == VALOR_X ? 'X' : 'O');
             fgets(linha,50,stdin);
+            strtok(linha,"\n");
             switch(toupper(linha[0])) {
                 case 'N':
                     e.modo = 0;
@@ -73,7 +75,7 @@ int main() {
                     if(jogInv) printf("\nJogada inválida! Tente novamente.\n\n");
                     break;
                 case 'S':
-                    *ajudaPos = 1;
+                    ajudaPos = 1;
                     break;
                 case 'E': {
                     if(grava(e,strtok(linha + 2,"\n"))) printf("\nErro ao guardar ficheiro.\n\n");
@@ -104,6 +106,11 @@ int main() {
                         free(temp);
                     }
                     else printf("\nImpossível anular jogada.\n\n");
+                    inGame = 1;
+                    break;
+                case 'C':
+                    torneio(linha + 2);
+                    inGame = 0;
                     break;
                 case 'A':
                     sscanf(linha + 1," %c %d",&c1,&x);
@@ -122,10 +129,8 @@ int main() {
                     break;
 
             }
-            if(inGame && !quit) {
-                printa(e, ajudaPos, jp, jogadasP, dica);
-                printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
-            }
+            if(inGame && !quit)
+                printa(e, ajudaPos ? jp : 0, jogadasP, dica);
         }
         if(e.modo == 1 && e.peca == bot.peca) {
             jp = jogadasPossiveis(e,e.peca,jogadasP);
@@ -135,13 +140,29 @@ int main() {
                 POSICAO jogada = jogadaBot(&bot,&e);
                 jogar(&e,jogada.lin,jogada.col);
                 printf("Jogada do bot:\n");
-                printa(e, ajudaPos, jp, jogadasP, dica);
-                printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
+                printa(e, ajudaPos ? jp : 0, jogadasP, dica);
                 e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
             }
         }
-        jogInv = 0;
+        jogInv = ajudaPos = 0;
         dica = NULL;
     }
     return 0;
+}
+
+void torneio(char *filepath) {
+    FILE *f;
+    f = fopen(strcat(filepath,".txt"),"r");
+    if(!f) {
+        printf("Novo campeonato\n");
+        ESTADO e = {0};
+        newBoard(&e,VALOR_X,1);
+        e.dif = 3;
+        if(!grava(e, filepath)) {
+            printf("\nFicheiro guardado com sucesso!\n\n");
+            printa(e,0,NULL,NULL);
+        }
+        else
+            printf("Erro ao criar o ficheiro %s.txt. Certifique-se que tem permissões.", filepath);
+    }
 }
