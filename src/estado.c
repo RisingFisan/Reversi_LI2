@@ -58,10 +58,10 @@ void printa(ESTADO e, int nPos, POSICAO pos[], POSICAO * dica) {
     printf("X: %2d       O: %2d\n\n",score(e,VALOR_X),score(e,VALOR_O));
 }
 
-void limpaHist(ESTADOSH* hist) {
-    while((*hist) != NULL) {
-        ESTADOSH temp = *hist;
-        *hist = (*hist)->prox;
-        free(temp);
-    }
-}
+// void limpaHist(ESTADOSH* hist) {
+//     while((*hist) != NULL) {
+//         ESTADOSH temp = *hist;
+//         *hist = (*hist)->prox;
+//         free(temp);
+//     }
+// }
