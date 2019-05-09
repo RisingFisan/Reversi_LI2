@@ -25,7 +25,7 @@ void newBoard(ESTADO* e, VALOR peca, char modo) {
 // exemplo de uma função para imprimir o estado (Tabuleiro)
 void printa(ESTADO e, int* pVal, int nPos, POSICAO pos[], POSICAO * dica) {
     char c = ' ';
-    printf("\n ");
+    printf("\nModo %s\n ",e.modo == 0 ? "manual" : "automático");
     for(int i = 0; i < 8; ++i) printf(" %d",i + 1);
     putchar('\n');
     for(int i = 0; i < 8; ++i) {

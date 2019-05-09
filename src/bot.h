@@ -28,7 +28,7 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e);
 
 int valor(ESTADO e, VALOR peca);
 
-int minimax(ESTADO node, int depth, VALOR maximizingPlayer);
+int minimax(ESTADO node, int depth, int alpha, int beta, VALOR maximizingPlayer);
 
 int max(int a, int b);
 int min(int a, int b);

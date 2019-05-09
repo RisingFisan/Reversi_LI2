@@ -32,8 +32,8 @@ int main() {
                 printf("\nNão há mais jogadas possíveis! GAME OVER\n");
                 int sx = score(e,VALOR_X);
                 int so = score(e,VALOR_O);
-                if(sx==so) printf("EMPATE!");
-                else printf("VENCEDOR: %c",sx > so ? 'X' : 'O');
+                if(sx==so) printf("EMPATE!\n");
+                else printf("VENCEDOR: %c\n",sx > so ? 'X' : 'O');
                 break;
             }
             else {
@@ -92,7 +92,7 @@ int main() {
                     //limpaHist(&historico);
                     break;
                 case 'H': {
-                    BOT botTemp = { .dif = 3, .peca = e.peca};
+                    BOT botTemp = { .dif = 2, .peca = e.peca};
                     posDica = jogadaBot(&botTemp,&e);
                     dica = &posDica;
                     break; }
