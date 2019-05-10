@@ -15,7 +15,6 @@ int main() {
     historico = NULL;
 
     BOT bot = {0};
-
     int quit = 0;
     int inGame = 0;
     char linha[50];
@@ -167,4 +166,17 @@ void torneio(char *filepath) {
         else
             printf("Erro ao criar o ficheiro %s.txt. Certifique-se que tem permissões.", filepath);
     }
+    else {
+        ESTADO *e=NULL;
+        BOT *b=NULL;
+        carrega(e,filepath);
+        b->dif=3;
+        if(e->peca==VALOR_O) b->peca=VALOR_X;
+        else b->peca=VALOR_O;
+        POSICAO p = jogadaBot(b,e);
+        jogar(e,p.lin,p.col);
+        grava(*e,filepath);
+        printa(*e,0,NULL,NULL);
+    }
+
 }
