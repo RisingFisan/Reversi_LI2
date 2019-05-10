@@ -81,14 +81,6 @@ int minimax(ESTADO node, int depth, int alpha, int beta, VALOR maximizingPlayer)
     if(depth == 0) {
         return valor(node,maximizingPlayer);
     }
-    if(gameOver(node)) {
-        int diff = score(node,maximizingPlayer) - score(node,maximizingPlayer == VALOR_X ? VALOR_O : VALOR_X);
-        if(diff > 0)
-            return 1000000;
-        else if(diff < 0)
-            return -1000000;
-        else return 0;
-    }
     if(node.peca == maximizingPlayer) {
         value = -1000000;
         if(jp == 0) {
