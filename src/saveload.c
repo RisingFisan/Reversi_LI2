@@ -33,7 +33,7 @@ int grava(ESTADO e, char *fileName) { // grava o estado atual do jogo num fichei
 int carrega (ESTADO *e, char *s) { // carrega um estado de jogo a partir de um ficheiro .txt
     FILE *f;
     char a,b,c;
-    f=fopen(strcat(s,".txt"), "r");
+    f=fopen(s, "r");
     if (f==NULL) return 1;
     else {
         fscanf(f,"%c %c",&a,&b);

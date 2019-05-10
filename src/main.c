@@ -7,6 +7,8 @@
 #include "saveload.h"
 #include "bot.h"
 
+static char nometorneio[50] = {0};
+
 void torneio(char *);
 
 int main() {
@@ -18,7 +20,7 @@ int main() {
 
     int quit = 0;
     int inGame = 0;
-    char linha[50];
+    char linha[50] = {0};
     char c1;
     int x, y, jp = 0, jogInv = 0;
     int ajudaPos = 0;
@@ -78,11 +80,11 @@ int main() {
                     ajudaPos = 1;
                     break;
                 case 'E': {
-                    if(grava(e,strtok(linha + 2,"\n"))) printf("\nErro ao guardar ficheiro.\n\n");
+                    if(grava(e,strcat(linha + 2,".txt"))) printf("\nErro ao guardar ficheiro.\n\n");
                     else printf("\nFicheiro guardado com sucesso!\n\n");
                     break; }
                 case 'L':
-                    if(!carrega(&e,strtok(linha + 2,"\n"))) {
+                    if(!carrega(&e,strcat(linha + 2,".txt"))) {
                         if(e.modo == 1) {
                             bot.peca = e.peca == VALOR_X ? VALOR_O : VALOR_X;
                             bot.dif = e.dif;
@@ -109,6 +111,12 @@ int main() {
                     inGame = 1;
                     break;
                 case 'C':
+                    if(!isalpha(linha[2]) && nometorneio[0]) {
+                        strcpy(linha + 2, nometorneio);
+                    }
+                    else {
+                        strcpy(nometorneio,linha + 2);
+                    }
                     torneio(linha + 2);
                     inGame = 0;
                     break;
@@ -153,11 +161,9 @@ int main() {
 }
 
 void torneio(char *filepath) {
-    FILE *f;
-    f = fopen(strcat(filepath,".txt"),"r");
-    if(!f) {
+    ESTADO e = {0};
+    if(carrega(&e,strcat(filepath,".txt"))) {
         printf("Novo campeonato\n");
-        ESTADO e = {0};
         newBoard(&e,VALOR_X,1);
         e.dif = 3;
         if(!grava(e, filepath)) {
@@ -166,5 +172,16 @@ void torneio(char *filepath) {
         }
         else
             printf("Erro ao criar o ficheiro %s.txt. Certifique-se que tem permissões.", filepath);
+    }
+    else {
+        printf("Jogada para o campeonato: tabuleiro recebido:\n");
+        printa(e,0,NULL,NULL);
+        BOT botC = { .dif = 3, .peca = e.peca };
+        POSICAO jogada = jogadaBot(&botC,&e);
+        jogar(&e,jogada.lin,jogada.col);
+        e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
+        printf("Jogada para o campeonato: tabuleiro enviado:\n");
+        printa(e,0,NULL,NULL);
+        grava(e,filepath);
     }
 }
