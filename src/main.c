@@ -35,7 +35,7 @@ int main() {
                 int so = score(e,VALOR_O);
                 if(sx==so) printf("EMPATE!\n");
                 else printf("VENCEDOR: %c\n",sx > so ? 'X' : 'O');
-                break;
+                inGame = 0;
             }
             else {
                 printf("\nJogador %c não pode jogar, tem de passar a vez.\n\n",e.peca == VALOR_X ? 'X' : 'O');
@@ -134,8 +134,10 @@ int main() {
         }
         if(e.modo == 1 && e.peca == bot.peca) {
             jp = jogadasPossiveis(e,e.peca,jogadasP);
-            if(jp == 0 && !gameOver(e))
+            if(jp == 0 && !gameOver(e)) {
                 printf("\nBot não pode jogar, tem de passar a vez.\n\n");
+                e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
+            }
             else {
                 POSICAO jogada = jogadaBot(&bot,&e);
                 jogar(&e,jogada.lin,jogada.col);
