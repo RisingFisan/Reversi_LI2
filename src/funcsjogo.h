@@ -14,4 +14,6 @@ void jogar (ESTADO* e, int c,int l);
 
 int gameOver(ESTADO e);
 
+int proxCanto(POSICAO pos);
+
 #endif // PROJ_FUNCSJOGO_H
