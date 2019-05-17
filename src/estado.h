@@ -54,9 +54,9 @@ typedef struct estadosh {
  * forma quase instantânea.
  */
 typedef struct posicao {
-    char lin;  ///< linha da posição
-    char col;  ///< coluna da posição
-    char dest; ///< "poder destrutivo" da posição, i.e., quantas peças rivais uma peça "come" se for colocada nessa posição
+    int lin;  ///< linha da posição
+    int col;  ///< coluna da posição
+    int dest; ///< "poder destrutivo" da posição, i.e., quantas peças rivais uma peça "come" se for colocada nessa posição
 } POSICAO;
 
 /**

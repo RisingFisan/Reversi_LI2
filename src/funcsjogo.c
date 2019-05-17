@@ -301,3 +301,10 @@ int gameOver(ESTADO e) {
     if(jogadasPossiveis(e,VALOR_X,temp) == 0 && jogadasPossiveis(e,VALOR_O,temp) == 0) return 1;
     else return 0; 
 }
+
+int proxCanto(POSICAO pos) {
+    return (pos.lin < 2 && pos.col < 2 && (pos.lin != 0 || pos.col != 0)) ||
+           (pos.lin < 2 && pos.col > 5 && (pos.lin != 0 || pos.col != 0)) ||
+           (pos.lin > 5 && pos.col < 2 && (pos.lin != 0 || pos.col != 0)) ||
+           (pos.lin > 5 && pos.col > 5 && (pos.lin != 0 || pos.col != 0));
+}

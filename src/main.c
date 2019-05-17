@@ -20,7 +20,7 @@ int main() {
 
     int quit = 0;
     int inGame = 0;
-    char linha[50] = {0};
+    char linha[100];
     char c1;
     int x, y, jp = 0, jogInv = 0;
     int ajudaPos = 0;
@@ -140,9 +140,9 @@ int main() {
             if(inGame && !quit)
                 printa(e, ajudaPos ? jp : 0, jogadasP, dica);
         }
-        if(e.modo == 1 && e.peca == bot.peca) {
+        if(e.modo == 1 && e.peca == bot.peca && !gameOver(e)) {
             jp = jogadasPossiveis(e,e.peca,jogadasP);
-            if(jp == 0 && !gameOver(e)) {
+            if(jp == 0) {
                 printf("\nBot não pode jogar, tem de passar a vez.\n\n");
                 e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
             }
@@ -162,7 +162,11 @@ int main() {
 
 void torneio(char *filepath) {
     ESTADO e = {0};
-    if(carrega(&e,strcat(filepath,".txt"))) {
+    char filename[100];
+    strcpy(filename,filepath);
+    strcat(filepath,".txt");
+    int erro = carrega(&e,filepath);
+    if(erro) {
         printf("Novo campeonato\n");
         newBoard(&e,VALOR_X,1);
         e.dif = 3;

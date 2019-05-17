@@ -43,8 +43,8 @@ int carrega (ESTADO *e, char *s) { // carrega um estado de jogo a partir de um f
         }
         else {
             e->modo = 1;
-            fscanf(f," %d\n",&c);
-            e->dif = c;
+            fscanf(f," %c\n",&c);
+            e->dif = c - '0';
         }
         if (b=='X') e->peca = VALOR_X;
         else        e->peca = VALOR_O;
