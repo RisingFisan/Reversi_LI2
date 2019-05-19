@@ -4,6 +4,12 @@
 #define PROJ_FUNCSJOGO_H
 
 /**
+\file funcsjogo.h
+\brief Funções relativas ao funcionamento do jogo.
+*/
+
+
+/**
  * Calcula a pontuação de um jogador, isto é, quantas peças tem no tabuleiro.
  * @param [in] e o estado que contém o tabuleiro
  * @param [in] peca a peça do jogador cuja pontuação se quer calcular

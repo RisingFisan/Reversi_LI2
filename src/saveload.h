@@ -1,6 +1,12 @@
 #include "estado.h"
 
 /**
+\file estado.h
+\brief Funções responsáveis por guardar e carregar o jogo.
+*/
+
+
+/**
  * Guarda num ficheiro o estado atual do jogo.
  * @param [in] e o estado que se pretende guardar
  * @param [in] fileName o nome do ficheiro a criar

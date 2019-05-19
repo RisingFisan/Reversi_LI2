@@ -1,17 +1,16 @@
 #include "estado.h"
 
-/** \mainpage Documentação
+/** \mainpage Créditos
  * 
- * \section intro_sec Introdução 
- * 
- * Introdução
- * 
- * 
- * 
- * 
- * 
+ * Projeto realizado por Ana Filipa Pereira, Carolina Santejo e Sofia Santos, alunas do 1º ano do MIEI na Universidade
+ * do Minho, no âmbito da cadeira de Laboratórios de Informática II.
  * 
  */
+
+/**
+\file bot.h
+\brief Definição do bot e das função relativas a este.
+*/
 
 
 /**
@@ -46,7 +45,7 @@ int valor(ESTADO e, VALOR peca);
  * @param node o estado cujo valor queremos calcular.
  * @param depth o nível da recursão, quando maior, mais tempo a função vai demorar a ser executada. Se for 0, a função apenas calcula o valor atual do estado (node).
  * @param alpha valor auxiliar para tornar a função mais eficiente
- * @param alpha valor auxiliar para tornar a função mais eficiente
+ * @param beta valor auxiliar para tornar a função mais eficiente
  * @param maximizingPlayer a peça do jogador que "chamou" esta função
  * @return o valor do estado node, para ser comparado com os outros nodos
  */
