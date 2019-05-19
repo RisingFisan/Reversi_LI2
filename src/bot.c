@@ -64,7 +64,6 @@ POSICAO jogadaBot(BOT* bot, ESTADO* e) {
                 else n = max(11 - jp, 5);
                 eCpy.peca = eCpy.peca == VALOR_X ? VALOR_O : VALOR_X;
                 int x = minimax(eCpy, n, -1000000, 1000000, bot->peca);
-                //printf("(%d,%d) - %d\n",jogadasP[i].lin,jogadasP[i].col,x);
                 if(x > valor) {
                     jogada = jogadasP[i];
                     valor = x;

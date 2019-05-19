@@ -161,9 +161,8 @@ int main() {
 }
 
 void torneio(char *filepath) {
+    POSICAO posJ[60];
     ESTADO e = {0};
-    char filename[100];
-    strcpy(filename,filepath);
     strcat(filepath,".txt");
     int erro = carrega(&e,filepath);
     if(erro) {
@@ -181,11 +180,21 @@ void torneio(char *filepath) {
         printf("Jogada para o campeonato: tabuleiro recebido:\n");
         printa(e,0,NULL,NULL);
         BOT botC = { .dif = 3, .peca = e.peca };
-        POSICAO jogada = jogadaBot(&botC,&e);
-        jogar(&e,jogada.lin,jogada.col);
+        int jp = jogadasPossiveis(e,e.peca,posJ);
+        if(jp) {
+            POSICAO jogada = jogadaBot(&botC, &e);
+            jogar(&e, jogada.lin, jogada.col);
+        }
         e.peca = e.peca == VALOR_O ? VALOR_X : VALOR_O;
         printf("Jogada para o campeonato: tabuleiro enviado:\n");
         printa(e,0,NULL,NULL);
-        grava(e,filepath);
+        if(gameOver(e)) {
+            if(score(e,VALOR_X) > score(e,VALOR_O))
+                grava(e,strcat(filepath,".gX"));
+            else if(score(e,VALOR_X) < score(e,VALOR_O))
+                grava(e,strcat(filepath,".gO"));
+            else grava(e,strcat(filepath,".g-"));
+        }
+        else grava(e,filepath);
     }
 }
